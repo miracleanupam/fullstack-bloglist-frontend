@@ -12,6 +12,15 @@ const login = async ({ username, password }) => {
     
 };
 
+const logout = async () => {
+    try {
+        window.localStorage.removeItem('loggedInUser');
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 export default {
     login,
+    logout,
 }
