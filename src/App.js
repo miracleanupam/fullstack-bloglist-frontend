@@ -78,6 +78,17 @@ const App = () => {
       console.log(e);
       setNewMessage({ text: 'Something went wrong', isError: true });
     }
+  };
+
+  const handleBlogDelete = async (id) => {
+    try {
+      await blogService.remove(id);
+      setNewMessage({ text: 'Deleted successfully', isError: false });
+      const newBlogSet = blogs.filter(b => b.id !== id);
+      setBlogs(newBlogSet);
+    } catch (e) {
+      setNewMessage({ text: 'Something went wrong', isError: true});
+    }
   }
 
   const loginForm = () => {
@@ -154,7 +165,7 @@ const App = () => {
           {blogForm()}
           <button type='button' onClick={handleLogout}>Logout</button>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} increaseLikeByOne={increaseLikeByOne} />
+            <Blog key={blog.id} blog={blog} increaseLikeByOne={increaseLikeByOne} handleBlogDelete={handleBlogDelete} />
           )}
         </div>)
       }

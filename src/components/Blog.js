@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Blog = ({ blog, increaseLikeByOne }) => {
+const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpanded = () => {
@@ -8,15 +8,18 @@ const Blog = ({ blog, increaseLikeByOne }) => {
   };
 
   const handleLike = () => {
-    console.log('like button press vayo');
-    console.log(blog);
     const newData = {
       ...blog,
       likes: blog.likes + 1,
       user: blog.user.id,
     };
-    console.log(newData);
     increaseLikeByOne(newData);
+  };
+
+  const handleDelete = () => {
+    if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+      handleBlogDelete(blog.id);
+    }
   }
 
   return (
@@ -27,6 +30,7 @@ const Blog = ({ blog, increaseLikeByOne }) => {
           <p>{blog.url}</p>
           <p>{blog.likes} <button type='button' onClick={handleLike}>Like</button></p>
           <p>{blog.user.name}</p>
+          <button type='button' onClick={handleDelete}>Delete</button>
         </div>
         ) : (<div></div>)}
     </div>
