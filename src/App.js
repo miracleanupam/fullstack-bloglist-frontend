@@ -8,7 +8,7 @@ import loginService from './services/login'
 
 const App = () => {
   const [loginVisible, setLoginVisible] = useState(false);
-  const [blogFormVisible, setBlogFormVisible] = useState(true);
+  const [blogFormVisible, setBlogFormVisible] = useState(false);
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
