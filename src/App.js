@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Blog from './components/Blog'
+import Notification from './components/Notification';
 import blogService from './services/blogs'
 import loginService from './services/login'
 
@@ -11,6 +12,7 @@ const App = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [url, setUrl] = useState('');
+  const [message, setMessage] = useState({ text: '', isError: false });
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -26,6 +28,17 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, []);
+
+  const setNewMessage = (msg) => {
+
+    setMessage(msg);
+    setTimeout(() => {
+      setMessage({
+        text: "",
+        isError: false,
+      })
+    }, 5000);
+  }
 
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -46,13 +59,19 @@ const App = () => {
   }
 
   const addBlog = async (event) => {
-    event.preventDefault();
-    const blogObj = {
-      title, url, author
-    };
-
-    const newBlog = await blogService.create(blogObj);
-    setBlogs(blogs.concat(newBlog));
+    try {
+      event.preventDefault();
+      const blogObj = {
+        title, url, author
+      };
+  
+      const newBlog = await blogService.create(blogObj);
+      setBlogs(blogs.concat(newBlog));
+      setNewMessage({ text: 'New Blog Added Successfully', isError: false });
+    } catch (e) {
+      setNewMessage({ text: 'Something went wrong', isError: true });
+    }
+    
   }
 
   const loginForm = () => (
@@ -106,8 +125,7 @@ const App = () => {
   );
 
   const handleLogin = async (event) => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
+    event.preventDefault();
     try {
       const user = await loginService.login({
         username, password,
@@ -121,14 +139,14 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch (e) {
-      console.log('handlelogin ko error bata');
-      console.log(e);
+        setNewMessage({ text: 'Could not login. Try again!', isError: true });
     }
   }
 
   return (
     <div>
       <h2>Blogs</h2>
+      <Notification msg={message} />
 
       {user === null ?
         loginForm()
