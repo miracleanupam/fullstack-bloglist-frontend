@@ -10,6 +10,7 @@ const setToken = (newToken) => {
 const getAll = async () => {
   try {
     const res = await axios.get(baseUrl);
+    res.data.sort((a, b) => b.likes - a.likes);
     return res.data;
   } catch (e) {
     console.log(e);
