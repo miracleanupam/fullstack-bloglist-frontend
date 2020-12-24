@@ -59,6 +59,25 @@ const App = () => {
       setNewMessage({ text: 'Something went wrong', isError: true });
     }
 
+  };
+
+  const increaseLikeByOne = async (blogObject) => {
+    try {
+      const newBlogData = await blogService.update(blogObject, blogObject.id);
+      setNewMessage({ text: 'Like Updated Successfully', isError: false });
+      const newBlogSet = blogs.map(b => {
+        if (b.id !== newBlogData.id) {
+          return b;
+        } else {
+          return {...b, likes: newBlogData.likes}
+        }
+      });
+
+      setBlogs(newBlogSet);
+    } catch (e) {
+      console.log(e);
+      setNewMessage({ text: 'Something went wrong', isError: true });
+    }
   }
 
   const loginForm = () => {
@@ -135,7 +154,7 @@ const App = () => {
           {blogForm()}
           <button type='button' onClick={handleLogout}>Logout</button>
           {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} increaseLikeByOne={increaseLikeByOne} />
           )}
         </div>)
       }
