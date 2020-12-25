@@ -20,7 +20,7 @@ const getAll = async () => {
 
 const create = async (newBlog) => {
   const config = {
-    headers: { Authorization: token},
+    headers: { Authorization: token },
   };
 
   try {
@@ -52,12 +52,12 @@ const remove = async (id) => {
   };
 
   try {
-    const res = await axios.delete(`${baseUrl}/${id}`, config);
+    await axios.delete(`${baseUrl}/${id}`, config);
     return true;
   } catch (e) {
     console.log(e);
     throw e;
   }
-}
+};
 
 export default { getAll, create, update, remove, setToken };

@@ -21,7 +21,7 @@ const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
     if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
       handleBlogDelete(blog.id);
     }
-  }
+  };
 
   return (
     <div className='blogPost'>
@@ -33,7 +33,7 @@ const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
           <p>{blog.user.name}</p>
           <button type='button' onClick={handleDelete}>Delete</button>
         </div>
-        ) : (<div></div>)}
+      ) : (<div></div>)}
     </div>
   );
 };
@@ -42,6 +42,6 @@ Blog.propTypes = {
   blog: PropTypes.object.isRequired,
   increaseLikeByOne: PropTypes.func.isRequired,
   handleBlogDelete: PropTypes.func.isRequired,
-}
+};
 
 export default Blog;

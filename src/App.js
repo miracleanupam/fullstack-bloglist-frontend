@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import Blog from './components/Blog'
+import React, { useState, useEffect } from 'react';
+import Blog from './components/Blog';
 import BlogForm from './components/BlogForm';
 import LoginForm from './components/LoginForm';
 import Notification from './components/Notification';
-import blogService from './services/blogs'
-import loginService from './services/login'
+import blogService from './services/blogs';
+import loginService from './services/login';
 
 const App = () => {
   const [loginVisible, setLoginVisible] = useState(false);
@@ -13,13 +13,13 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  
+
   const [message, setMessage] = useState({ text: '', isError: false });
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
-    )
+    );
   }, []);
 
   useEffect(() => {
@@ -36,11 +36,11 @@ const App = () => {
     setMessage(msg);
     setTimeout(() => {
       setMessage({
-        text: "",
+        text: '',
         isError: false,
-      })
+      });
     }, 5000);
-  }
+  };
 
   const handleLogout = async (event) => {
     event.preventDefault();
@@ -48,7 +48,7 @@ const App = () => {
     setUser(null);
   };
 
-  
+
 
   const addBlog = async (blogObj) => {
     try {
@@ -69,7 +69,7 @@ const App = () => {
         if (b.id !== newBlogData.id) {
           return b;
         } else {
-          return {...b, likes: newBlogData.likes}
+          return { ...b, likes: newBlogData.likes };
         }
       });
 
@@ -87,9 +87,9 @@ const App = () => {
       const newBlogSet = blogs.filter(b => b.id !== id);
       setBlogs(newBlogSet);
     } catch (e) {
-      setNewMessage({ text: 'Something went wrong', isError: true});
+      setNewMessage({ text: 'Something went wrong', isError: true });
     }
-  }
+  };
 
   const loginForm = () => {
     const hideWhenVisible = { display: loginVisible ? 'none' : '' };
@@ -115,8 +115,8 @@ const App = () => {
   };
 
   const blogForm = () => {
-    const hideWhenVisible = { display: blogFormVisible ? 'none' : ''};
-    const showWhenVisible = { display: blogFormVisible ? '' : 'none'};
+    const hideWhenVisible = { display: blogFormVisible ? 'none' : '' };
+    const showWhenVisible = { display: blogFormVisible ? '' : 'none' };
 
     return (
       <div>
@@ -130,8 +130,8 @@ const App = () => {
           <button onClick={() => setBlogFormVisible(false)}>Cancle</button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -144,13 +144,13 @@ const App = () => {
         'loggedInUser', JSON.stringify(user)
       );
 
-      setUser(user)
-      setUsername('')
-      setPassword('')
+      setUser(user);
+      setUsername('');
+      setPassword('');
     } catch (e) {
       setNewMessage({ text: 'Could not login. Try again!', isError: true });
     }
-  }
+  };
 
   return (
     <div>
@@ -171,7 +171,7 @@ const App = () => {
       }
 
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

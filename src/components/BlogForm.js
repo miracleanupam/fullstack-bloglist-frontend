@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const BlogForm = ({
-    addBlog,
+  addBlog,
 }) => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
@@ -22,7 +22,7 @@ const BlogForm = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     const blogObj = {
-        title, url, author
+      title, url, author
     };
 
     addBlog(blogObj);
@@ -31,31 +31,31 @@ const BlogForm = ({
     setUrl('');
   };
 
-    return (
-        <form onSubmit={handleSubmit}>
+  return (
+    <form onSubmit={handleSubmit}>
             Title:
-            <input
-                value={title}
-                onChange={handleTitleChange}
-                name='title'
-            />
-            <br></br>
+      <input
+        value={title}
+        onChange={handleTitleChange}
+        name='title'
+      />
+      <br></br>
             Author:
-            <input
-                value={author}
-                onChange={handleAuthorChange}
-                name='author'
-            />
-            <br></br>
+      <input
+        value={author}
+        onChange={handleAuthorChange}
+        name='author'
+      />
+      <br></br>
             Url:
-            <input
-                value={url}
-                onChange={handleUrlChange}
-            />
-            <br></br>
-            <button type='submit'>Save</button>
-        </form>
-    );
+      <input
+        value={url}
+        onChange={handleUrlChange}
+      />
+      <br></br>
+      <button type='submit'>Save</button>
+    </form>
+  );
 };
 
 export default BlogForm;
