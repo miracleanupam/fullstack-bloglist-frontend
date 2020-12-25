@@ -50,4 +50,32 @@ test('Blog\'s url and likes are shown when view button is clicked', () => {
 
     expect(component.container).toHaveTextContent('5');
     expect(component.container).toHaveTextContent('www.google.com');
-})
+});
+
+
+test ('Blog\'s increaseLikesByOne prop is called twice when like button is pressed twice', () => {
+    const blog = {
+        title: 'Blog Component',
+        author: 'Test User',
+        likes: 5,
+        url: 'www.google.com',
+        user: {
+            name: 'Tester'
+        }
+    };
+
+    const mockHandler = jest.fn();
+
+    const component = render(
+        <Blog blog={blog} increaseLikeByOne={mockHandler} />
+    );
+
+    const viewButton = component.getByText('view');
+    fireEvent.click(viewButton);
+
+    const likeButton = component.getByText('Like');
+    fireEvent.click(likeButton);
+    fireEvent.click(likeButton);
+
+    expect(mockHandler.mock.calls).toHaveLength(2);
+});
