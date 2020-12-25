@@ -53,7 +53,6 @@ const remove = async (id) => {
 
   try {
     const res = await axios.delete(`${baseUrl}/${id}`, config);
-    console.log(res);
     return true;
   } catch (e) {
     console.log(e);
