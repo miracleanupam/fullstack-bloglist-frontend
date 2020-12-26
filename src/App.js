@@ -98,7 +98,7 @@ const App = () => {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>Log In</button>
+          <button id='log-in-expand' onClick={() => setLoginVisible(true)}>Log In</button>
         </div>
         <div style={showWhenVisible}>
           <LoginForm
