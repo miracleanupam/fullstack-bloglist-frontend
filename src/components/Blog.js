@@ -25,11 +25,11 @@ const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
 
   return (
     <div className='blogPost'>
-      {blog.title} {blog.author} <button type='button' onClick={toggleExpanded}>{isExpanded ? 'hide' : 'view'}</button>
+      {blog.title} {blog.author} <button className='blog-expand-toggle' type='button' onClick={toggleExpanded}>{isExpanded ? 'hide' : 'view'}</button>
       { isExpanded ? (
         <div>
           <p>{blog.url}</p>
-          <p>{blog.likes} <button type='button' onClick={handleLike}>Like</button></p>
+          <p>{blog.likes} <button className='blog-like' type='button' onClick={handleLike}>Like</button></p>
           <p>{blog.user.name}</p>
           <button type='button' onClick={handleDelete}>Delete</button>
         </div>
