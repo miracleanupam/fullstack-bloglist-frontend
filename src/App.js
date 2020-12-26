@@ -121,13 +121,13 @@ const App = () => {
     return (
       <div>
         <div style={hideWhenVisible}>
-          <button onClick={() => setBlogFormVisible(true)}>Add Blog Post</button>
+          <button id='blog-add' onClick={() => setBlogFormVisible(true)}>Add Blog Post</button>
         </div>
         <div style={showWhenVisible}>
           <BlogForm
             addBlog={addBlog}
           />
-          <button onClick={() => setBlogFormVisible(false)}>Cancle</button>
+          <button id='blog-cancle' onClick={() => setBlogFormVisible(false)}>Cancle</button>
         </div>
       </div>
     );
@@ -159,7 +159,7 @@ const App = () => {
 
       {user === null ?
         loginForm()
-        : (<div>
+        : (<div id='blog-list'>
           <p>Loggin in as {user.name}</p>
 
           {blogForm()}

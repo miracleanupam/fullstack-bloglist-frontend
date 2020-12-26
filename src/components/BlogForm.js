@@ -56,7 +56,7 @@ const BlogForm = ({
         onChange={handleUrlChange}
       />
       <br></br>
-      <button type='submit'>Save</button>
+      <button id='blog-submit' type='submit'>Save</button>
     </form>
   );
 };

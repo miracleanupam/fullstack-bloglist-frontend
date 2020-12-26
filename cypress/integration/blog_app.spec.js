@@ -30,6 +30,7 @@ describe('Blog App', function() {
       cy.get('#login-submit').click();
 
       cy.contains('Could not login');
+      cy.get('.error').should('have.css', 'color', 'rgb(255, 0, 0)');
     });
 
     it('succeeds with right creds', function() {
@@ -39,6 +40,28 @@ describe('Blog App', function() {
       cy.get('#login-submit').click();
 
       cy.contains('Loggin in as Ramesh');
+    });
+  });
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      cy.request('POST', 'http://localhost:3001/api/login', {
+        username: 'ramesh', password: 'shrestha'
+      }).then(response => {
+        localStorage.setItem('loggedInUser', JSON.stringify(response.body));
+        cy.visit('http://localhost:3000');
+      });
+    });
+
+    it('A blog can be created', function() {
+      cy.get('#blog-add').click();
+      cy.get('#title').type('Cypress Test');
+      cy.get('#author').type('Cypress');
+      cy.get('#url').type('www.cypress.org');
+      cy.get('#blog-submit').click();
+
+      cy.contains('New Blog Added Successfully');
+      cy.get('#blog-list').contains('Cypress Test Cypress');
     });
   });
 });
