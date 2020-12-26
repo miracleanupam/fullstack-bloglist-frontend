@@ -22,7 +22,7 @@ describe('Blog App', function() {
     cy.contains('password');
   });
 
-  describe('Login Attemp', function() {
+  describe('Login Attempt', function() {
     it('fails with wrong creds', function() {
       cy.get('#log-in-expand').click();
       cy.get('#login-username').type('romesh');
@@ -91,6 +91,42 @@ describe('Blog App', function() {
       cy.get('.blog-delete').click();
       cy.contains('Deleted successfully');
       cy.get('#blog-list').should('not.contain', 'Cypress Test Cypress');
+    });
+
+    it('Blogs are ordered by number of likes', function() {
+      cy.createBlog({
+        title: 'Middle Likes',
+        author: 'MLikes',
+        url: 'mlikes.com',
+        likes: 43
+      });
+
+      cy.createBlog({
+        title: 'Least Likes',
+        author: 'Llikes',
+        url: 'llikes.com',
+        likes: 0
+      });
+
+      cy.createBlog({
+        title: 'Most Likes',
+        author: 'MoLikes',
+        url: 'MoLikes.com',
+        likes: 76
+      });
+
+      cy.visit('http://localhost:3000/');
+
+      cy.get('.blog-expand-toggle').then(($bp) => {
+        $bp.click();
+      });
+
+      cy.get('.blog-likes-count').then(($bc) => {
+        const objs = Object.values($bc).slice(0, 3);
+        const counts = objs.map(o => Number(o.innerHTML));
+        const originalCounts = [ ...counts ];
+        expect(originalCounts).to.deep.equal(counts.sort().reverse());
+      });
     });
   });
 });

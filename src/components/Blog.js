@@ -29,7 +29,7 @@ const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
       { isExpanded ? (
         <div>
           <p>{blog.url}</p>
-          <p>{blog.likes} <button className='blog-like' type='button' onClick={handleLike}>Like</button></p>
+          <p><span className='blog-likes-count'>{blog.likes}</span> <button className='blog-like' type='button' onClick={handleLike}>Like</button></p>
           <p>{blog.user.name}</p>
           <button className='blog-delete' type='button' onClick={handleDelete}>Delete</button>
         </div>
