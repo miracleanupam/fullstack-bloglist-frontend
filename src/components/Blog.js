@@ -31,7 +31,7 @@ const Blog = ({ blog, increaseLikeByOne, handleBlogDelete }) => {
           <p>{blog.url}</p>
           <p>{blog.likes} <button className='blog-like' type='button' onClick={handleLike}>Like</button></p>
           <p>{blog.user.name}</p>
-          <button type='button' onClick={handleDelete}>Delete</button>
+          <button className='blog-delete' type='button' onClick={handleDelete}>Delete</button>
         </div>
       ) : (<div></div>)}
     </div>

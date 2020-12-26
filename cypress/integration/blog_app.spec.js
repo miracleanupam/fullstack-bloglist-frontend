@@ -78,5 +78,19 @@ describe('Blog App', function() {
       cy.get('.blog-like').click();
       cy.contains(2);
     });
+
+    it('User who created the blog can delete it', function() {
+      cy.get('#blog-add').click();
+      cy.get('#title').type('Cypress Test');
+      cy.get('#author').type('Cypress');
+      cy.get('#url').type('www.cypress.org');
+      cy.get('#blog-submit').click();
+
+      cy.contains('New Blog Added Successfully');
+      cy.get('.blog-expand-toggle').click();
+      cy.get('.blog-delete').click();
+      cy.contains('Deleted successfully');
+      cy.get('#blog-list').should('not.contain', 'Cypress Test Cypress');
+    });
   });
 });
